@@ -61,7 +61,7 @@
 
 Також на схемі CubeMX видно вбудовану кнопку B1 на PC13, але у програмі для тесту використовується окрема кнопка на PB0.
 
-![CubeMX Pinout](screenshots/01-cubemx-pinout.jpg)
+![CubeMX Pinout](screenshots\01-cubemx-pinout.jpg)
 
 ### 4.2 Clock Configuration
 
