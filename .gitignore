@@ -13,6 +13,7 @@ firmware/build/
 # Wokwi generated files
 *.vcd
 wokwi.vcd
+!docs/captures/*.vcd
 
 # OS files
 .DS_Store
@@ -25,3 +26,7 @@ Thumbs.db
 *.tmp
 *.log
 *~
+
+# Generated reports
+*.docx
+*.pdf

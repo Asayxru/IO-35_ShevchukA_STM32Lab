@@ -26,7 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include "lab_app.h"
+#include "app.h"
 
 /* USER CODE END Includes */
 
@@ -102,15 +102,9 @@ int main(void)
    * BMP180 check
    * ADC / GPIO preparation
    */
-  LAB_AppInit();
+  App_Init();
 
   /* USER CODE END 2 */
-
-  /* Initialize leds */
-  BSP_LED_Init(LED_GREEN);
-
-  /* Initialize USER push-button, will be used to trigger an interrupt each time it's pressed.*/
-  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -127,7 +121,7 @@ int main(void)
      *
      * and outputs telemetry via UART.
      */
-    LAB_AppLoop();
+    App_Loop();
 
     /* USER CODE END WHILE */
 

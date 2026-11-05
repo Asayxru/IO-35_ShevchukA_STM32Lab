@@ -23,6 +23,8 @@ TARGET = firmware
 DEBUG = 1
 # optimization
 OPT = -Og
+# Режим Wokwi: 0=звичайний, 1=CHIP_ID, 2=measurement, 3=NACK
+CAPTURE_MODE ?= 0
 
 
 #######################################
@@ -41,7 +43,10 @@ Core/Src/gpio.c \
 Core/Src/adc.c \
 Core/Src/i2c.c \
 Core/Src/usart.c \
-Core/Src/lab_app.c \
+Platform/soft_i2c.c \
+Platform/board.c \
+Devices/bmp180.c \
+App/app.c \
 Core/Src/stm32c0xx_it.c \
 Core/Src/stm32c0xx_hal_msp.c \
 Drivers/BSP/STM32C0xx_Nucleo/stm32c0xx_nucleo.c \
@@ -130,6 +135,9 @@ AS_INCLUDES =
 # C includes
 C_INCLUDES =  \
 -ICore/Inc \
+-IPlatform \
+-IDevices \
+-IApp \
 -IDrivers/STM32C0xx_HAL_Driver/Inc \
 -IDrivers/STM32C0xx_HAL_Driver/Inc/Legacy \
 -IDrivers/BSP/STM32C0xx_Nucleo \
@@ -141,6 +149,7 @@ C_INCLUDES =  \
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
 CFLAGS += $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+CFLAGS += -DAPP_CAPTURE_MODE=$(CAPTURE_MODE)
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -gdwarf-2
@@ -171,6 +180,13 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 #######################################
 # list of objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(C_SOURCES:.c=.o)))
+USER_OBJECTS = \
+$(BUILD_DIR)/soft_i2c.o \
+$(BUILD_DIR)/board.o \
+$(BUILD_DIR)/bmp180.o \
+$(BUILD_DIR)/app.o
+
+$(USER_OBJECTS): CFLAGS += -Wextra
 vpath %.c $(sort $(dir $(C_SOURCES)))
 # list of ASM program objects
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASM_SOURCES:.s=.o)))
