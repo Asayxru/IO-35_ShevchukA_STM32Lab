@@ -1,0 +1,32 @@
+# Build artifacts
+build/
+firmware/build/
+
+*.o
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.d
+
+# Wokwi generated files
+*.vcd
+wokwi.vcd
+!docs/captures/*.vcd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code local settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.log
+*~
+
+# Generated reports
+*.docx
+*.pdf
